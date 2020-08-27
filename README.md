@@ -16,17 +16,17 @@ _Example:_
 
 ### Prerequisites
 
-* Web Server with Python (so that IFTTT can make requests to your server)
+* Web Server that running Python
 * [Python](https://www.python.org/) 3 or higher
 * [IFTTT](https://ifttt.com/) account
 
-### Clone this repository
+#### Clone this repository
 
 ``` bash
-git clone https://github.com/wiseindy/timer-for-google-assistant.git
+git clone https://github.com/pizidavi/Google-Assistant-Timer
 ```
 
-### Copy the `config.json.sample` in `config.json` and change the settings  
+#### Copy the `config.json.sample` in `config.json` and change the settings  
 
 ``` json
 {
@@ -41,15 +41,15 @@ git clone https://github.com/wiseindy/timer-for-google-assistant.git
 
 * `SECURITY_KEY` : Set this to a **unique** string.  
 * `IFTTT`  
-	* `KEY` : Get your IFTTT key from [IFTTT Service](https://ifttt.com/maker_webhooks). Click the **Documentation** button at the top right to get your key.  
-	* `OFF_suffix` : The suffix for the "off" action in IFTTT.  
-	* `ON_suffix` : The suffix for the "on" action in IFTTT.  
+	* `KEY` : Get your key from [IFTTT Service](https://ifttt.com/maker_webhooks) clicking the *Documentation* button at the top right.  
+	* `OFF_suffix` : The suffix for the "off" action.  
+	* `ON_suffix` : The suffix for the "on" action.  
 
 ---
 
 ### Integrate with IFTTT
 
-COMING SOON  
+COMING SOON
 
 ---
 
@@ -68,22 +68,30 @@ python3 main.py
 
 ### Usage
 
- `POST /trigger`
+ `POST /trigger/<action>`
 
-### Request body
+#### Request head
+
+| Name | Type | Required | Description |
+| :--- | :--- | :---| :--- |
+| `action` | string  | **Yes**  | The action to execute. It can be **on** or **off** |
+
+#### Request body
 
 Content type: `application/json`
 
-| Name | Type | Required | Default value | Description |
-| :--- | :--- | :---| :--- | :--- |
-| `key` | string  | **Yes**  | - | This key can be any value, however, it should the match the key specified while setting up the server. |
-| `durationInMinutes` | number  | **Yes**  | - | Number of minutes after which the action should be triggered. |
-| `deviceName` | string  | **Yes**  | - | Name of the target device. |
-| `targetState` | boolean | No       | false | What should the state of the device be *after* firing the event? `true` = ON; `false` = OFF |
+| Name | Type | Required | Description |
+| :--- | :--- | :---| :--- |
+| `key` | string  | **Yes**  | The Security Key specified in the server |
+| `durationInMinutes` | number  | **Yes**  | Minutes to wait |
+| `deviceName` | string  | **Yes**  | Name of the target device |
+| `targetState` | boolean | No | The action to execute. _True_ -> Execute **after** X minutes, _False_ -> Execute **for** X minutes |
 
 #### Example
 
-Making a `POST` request with the parameters below will set the `light` to `OFF` after `20` minutes.
+Making a `POST` request with the parameters below will set the `light` to `ON` after `20` minutes.
+
+URL: http://your-server.it/trigger/on
 
 ``` json
 {
@@ -94,13 +102,11 @@ Making a `POST` request with the parameters below will set the `light` to `OFF` 
 }
 ```
 
-#### A note on the `targetState` parameter
-
-If `targetState` is set to `false` (i.e., OFF), the device will be first turned `ON` upon receiving this command. After the specified time has elapsed, the device will be turned `OFF`. This is an optional parameter and by default, `targetState` is `false`.  
-If `targetState` is set to `true` (i.e., ON), it will do the opposite. The device will be first turned `OFF` upon receiving this command. After the specified time has elapsed, the device will be turned `ON`.  
-
-
 ## License
 
 **Google Assistant Timer** is [MIT](LICENSE) licensed.  
-All trademarks are the property of their respective owners.  
+
+## Credit
+
+The idea of **Google Assistant Timer** come from [Time for Google Assistant](https://github.com/wiseindy/timer-for-google-assistant), because I tried to use the "original" one but I couldn't make it work :(
+So I have rewritten the code in Python.
