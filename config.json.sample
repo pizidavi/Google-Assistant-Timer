@@ -1,0 +1,8 @@
+{
+  "SECURITY_KEY": "SECURITY_KEY",
+  "IFTTT": {
+    "KEY": "IFTTT_KEY",
+    "OFF_suffix": "_off",
+    "ON_suffix": "_on"
+  }
+}
