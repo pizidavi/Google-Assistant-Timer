@@ -108,5 +108,5 @@ URL: http://your-server.it/trigger/on
 
 ## Credit
 
-The idea of **Google Assistant Timer** come from [Time for Google Assistant](https://github.com/wiseindy/timer-for-google-assistant), because I tried to use the "original" one but I couldn't make it work :(
+The idea of **Google Assistant Timer** come from [Time for Google Assistant](https://github.com/wiseindy/timer-for-google-assistant), because I tried to use the "original" one but I couldn't make it work :(  
 So I have rewritten the code in Python.
