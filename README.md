@@ -23,7 +23,7 @@ _Example:_
 #### Clone this repository
 
 ``` bash
-git clone https://github.com/pizidavi/Google-Assistant-Timer
+git clone https://github.com/pizidavi/Google-Assistant-Timer.git
 ```
 
 #### Copy the `config.json.sample` in `config.json` and change the settings  
