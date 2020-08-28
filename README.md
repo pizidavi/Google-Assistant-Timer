@@ -26,6 +26,20 @@ _Example:_
 git clone https://github.com/pizidavi/Google-Assistant-Timer.git
 ```
 
+#### Install requirements
+
+``` bash
+cd Google-Assistant-Timer
+pip install -r requirements.txt
+```
+
+_or_
+
+``` bash
+cd Google-Assistant-Timer
+python -m pip install -r requirements.txt
+```
+
 #### Copy the `config.json.sample` in `config.json` and change the settings  
 
 ``` json
