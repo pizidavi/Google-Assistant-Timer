@@ -10,16 +10,10 @@ class Control:
         self.__eventOn = deviceName + config['ON_suffix']
         self.__eventOff = deviceName + config['OFF_suffix']
 
-    def on_for(self, durationInMinutes):
-        self.__ifttt.execute(self.__eventOn)
-        Timer(durationInMinutes, self.__ifttt.execute, args=[self.__eventOff]).start()
-
-    def on_after(self, durationInMinutes):
-        Timer(durationInMinutes, self.__ifttt.execute, args=[self.__eventOn]).start()
-
-    def off_for(self, durationInMinutes):
+    def off_to_on(self, seconds):
         self.__ifttt.execute(self.__eventOff)
-        Timer(durationInMinutes, self.__ifttt.execute, args=[self.__eventOn]).start()
+        Timer(seconds, self.__ifttt.execute, args=[self.__eventOn]).start()
 
-    def off_after(self, durationInMinutes):
-        Timer(durationInMinutes, self.__ifttt.execute, args=[self.__eventOff]).start()
+    def on_to_off(self, seconds):
+        self.__ifttt.execute(self.__eventOn)
+        Timer(seconds, self.__ifttt.execute, args=[self.__eventOff]).start()

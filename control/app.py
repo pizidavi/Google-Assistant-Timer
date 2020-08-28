@@ -6,22 +6,16 @@ app = Flask(__name__)
 config = load(open('config.json', 'r'))
 
 
-@app.route('/trigger/<string:action>', methods=['POST'])
+@app.route('/trigger/', methods=['POST'])
 def trigger_post(action=None):
     data = request.get_json(force=True)
 
     key = data['key'] if 'key' in data else None
     durationInMinutes = data['durationInMinutes'] if 'durationInMinutes' in data else None
     deviceName = data['deviceName'] if 'deviceName' in data else None
-    targetState = data['targetState'] if 'targetState' in data else None
+    targetState = data['targetState'] if 'targetState' in data else False
 
-    if action != 'on' and action != 'off':
-        return jsonify({
-            "statusCode": 400,
-            "message": "Missing action"
-        }), 400
-
-    if (key is None) or (durationInMinutes is None) or (deviceName is None) or (targetState is None):
+    if (key is None) or (durationInMinutes is None) or (deviceName is None):
         return jsonify({
             "statusCode": 400,
             "message": "Missing data"
@@ -32,22 +26,17 @@ def trigger_post(action=None):
             "statusCode": 403,
             "message": "Unauthorised"
         }), 403
-    print("New action ({}) on {} {} {} minutes".format(action, deviceName, targetState, durationInMinutes))
+
+    print("New action ({}) on {} in {} minutes".format(('on' if targetState else 'off'), deviceName, durationInMinutes))
 
     durationInSeconds = int(durationInMinutes) * 60
     control = Control(deviceName, config['IFTTT'])
 
-    if targetState:  # True -> After X minutes
-        if action == 'on':
-            control.on_after(durationInSeconds)
-        elif action == 'off':
-            control.off_after(durationInSeconds)
+    if targetState:
+        control.off_to_on(durationInSeconds)
 
-    elif not targetState:  # False -> For X minutes
-        if action == 'on':
-            control.on_for(durationInSeconds)
-        elif action == 'off':
-            control.off_for(durationInSeconds)
+    elif not targetState:
+        control.on_to_off(durationInSeconds)
 
     else:
         return jsonify({
@@ -61,7 +50,6 @@ def trigger_post(action=None):
 
 
 @app.route('/trigger/', methods=['GET'])
-@app.route('/trigger/<string:action>', methods=['GET'])
 def trigger_get(action=None):
     return jsonify({
         "statusCode": 400,
