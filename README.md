@@ -2,6 +2,8 @@
 
 Allows to send commands to Google Assistant that will execute after a certain time interval.
 
+> This repository is no longer maintained because **Google has implemented this by default**! 😃  
+
 _Example:_
 
 * _"Hey Google, turn on the light after 5 minutes"_
@@ -169,5 +171,4 @@ POST Request to http://your-server.it/trigger
 
 ## Credit
 
-The idea of **Google Assistant Timer** come from [Time for Google Assistant](https://github.com/wiseindy/timer-for-google-assistant), because I tried to use the "original" one but I couldn't make it work.  
-So I have rewritten the code in Python :)
+The idea of **Google Assistant Timer** come from [Time for Google Assistant](https://github.com/wiseindy/timer-for-google-assistant)
